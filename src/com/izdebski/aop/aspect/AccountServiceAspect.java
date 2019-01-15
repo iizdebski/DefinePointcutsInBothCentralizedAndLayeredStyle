@@ -1,5 +1,6 @@
 package com.izdebski.aop.aspect;
 
+import com.izdebski.model.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,17 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountServiceAspect {
 
-    @Pointcut("execution(* com.izdebski.service.impl.AccountServiceImpl.*(..))")
-    public void selectAll(){
-
-    }
-
-    @Before(value= "execution(* com.izdebski.service.impl.AccountServiceImpl.*(..))")
+    @Before(value = "com.izdebski.aop.PointcutDefinition.serviceLayer()")
     public void beforeAdvice(JoinPoint joinPoint){
         System.out.println("Before method:"+joinPoint.getSignature().getName()+",Class:"+joinPoint.getTarget().getClass().getSimpleName());
     }
 
-    @After(value = "selectAll()")
+    @After(value = "com.izdebski.aop.PointcutDefinition.serviceLayer()")
     public void afterAdvice(JoinPoint joinPoint){
         System.out.println("After method:"+joinPoint.getSignature().getName()+",Class:"+joinPoint.getTarget().getClass().getSimpleName());
     }
